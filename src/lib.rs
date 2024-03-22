@@ -10,11 +10,13 @@ impl Triangle {
         let y = sides[1];
         let z = sides[2];
 
-        if x > 0 && y > 0 && z > 0 && (x +y) >= z && (x + z) >= y && (y + z) >= x {
+        if sides.iter().all(|&c| c > 0) && x +y >= z && x + z >= y && y + z >= x {
             Some(Triangle{x, y, z})
         } else {
             None
         }
+        // if x > 0 && y > 0 && z > 0 && (x +y) >= z && (x + z) >= y && (y + z) >= x {
+
     }
 
     pub fn is_equilateral(&self) -> bool {
@@ -22,10 +24,10 @@ impl Triangle {
     }
 
     pub fn is_scalene(&self) -> bool {
-        self.x != self.y && self.x != self.z
+        self.x != self.y && self.x != self.z && self.y != self.z
     }
 
     pub fn is_isosceles(&self) -> bool {
-        self.x == self.y || self.x == self.z|| self.y == self.z
+        !self.is_equilateral() && !self.is_scalene()
     }
 }
